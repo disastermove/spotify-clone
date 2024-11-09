@@ -1,0 +1,30 @@
+[
+  {
+    "id": "1",
+    "title": "Blinding Lights",
+    "artist": "The Weeknd",
+    "mp3Url": "/weekend.mp3",
+    "coverUrl": "https://picsum.photos/200/300"
+  },
+  {
+    "id": "2",
+    "title": "Shape of You",
+    "artist": "Ed Sheeran",
+    "mp3Url": "/shape.mp3",
+    "coverUrl": "https://picsum.photos/200/300"
+  },
+  {
+    "id": "3",
+    "title": "Don't Start Now",
+    "artist": "Dua Lipa",
+    "mp3Url": "/dont.mp3",
+    "coverUrl": "https://picsum.photos/200/300"
+  },
+  {
+    "id": "4",
+    "title": "@ClarentKP - IA",
+    "artist": "Clarent",
+    "mp3Url": "/ia.mp3",
+    "coverUrl": "https://picsum.photos/200/300"
+  }
+]
