@@ -1,6 +1,7 @@
 import Player from "./Player";
 import Sidebar from "./Sidebar";
 import songsData from "./songs.json";
+import "./style.css";
 
 function App() {
   return (

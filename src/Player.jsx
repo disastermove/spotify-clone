@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import PropTypes from "prop-types";
-import "./style.css";
+import "./player.css";
 
 const Player = ({ songs }) => {
   const [currentSongIndex, setCurrentSongIndex] = useState(0);
@@ -46,7 +46,6 @@ const Player = ({ songs }) => {
   };
 
   const nextSongHandler = () => {
-    console.time("Next song load time"); // Inicia el temporizador
     setCurrentSongIndex((prevIndex) => (prevIndex + 1) % songs.length);
     setIsPlaying(true);
   };
@@ -55,7 +54,7 @@ const Player = ({ songs }) => {
     setCurrentSongIndex(
       (prevIndex) => (prevIndex - 1 + songs.length) % songs.length
     );
-    setIsPlaying(true); // También aquí para reproducir automáticamente la canción anterior
+    setIsPlaying(true);
   };
 
   const volumeChangeHandler = (e) => {
@@ -88,7 +87,6 @@ const Player = ({ songs }) => {
     }
   }, [currentTime, duration, volume]);
 
-  // Reproduce automáticamente la canción si `isPlaying` es true y cambia el índice de la canción
   useEffect(() => {
     if (isPlaying) {
       audioRef.current.play().then(() => {
@@ -100,27 +98,29 @@ const Player = ({ songs }) => {
   return (
     <div className="player">
       <audio ref={audioRef} src={currentSong.mp3Url} preload="auto" />
-      {bigImage && (
-        <img
-          src={currentSong.coverUrl}
-          alt={`${currentSong.title} cover`}
-          className="player__cover2"
-        />
-      )}
 
       <div className="player__details">
-        {!bigImage && (
-          <div>
+        <div
+          className={
+            bigImage ? "player__expanded-cover" : "player__cover-container"
+          }
+        >
+          <img
+            src={currentSong.coverUrl}
+            alt={`${currentSong.title} cover`}
+            className={bigImage ? "player__cover2" : "player__cover"}
+          />
+          <button
+            className="player__toggle-btn"
+            onClick={() => setBigImage(!bigImage)}
+          >
             <img
-              src={currentSong.coverUrl}
-              alt={`${currentSong.title} cover`}
-              className="player__cover"
+              src={"/img/expand.svg"}
+              alt={bigImage ? "Minimize" : "Expand"}
             />
-            <button onClick={() => setBigImage(!bigImage)}>
-              <img src="/img/expand.svg" alt="Expand" />
-            </button>
-          </div>
-        )}
+          </button>
+        </div>
+
         <div className="player__info">
           <h3>{currentSong.title}</h3>
           <p>{currentSong.artist}</p>
