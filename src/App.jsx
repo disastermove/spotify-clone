@@ -1,11 +1,13 @@
 import Player from "./Player";
+import Sidebar from "./Sidebar";
 import songsData from "./songs.json";
 
 function App() {
   return (
     <div className="App">
-      <h1>Music Player</h1>
-      <div className="left-side"></div>
+      <div className="left-side">
+        <Sidebar />
+      </div>
       <div className="right-side"></div>
       <Player songs={songsData} />
     </div>
