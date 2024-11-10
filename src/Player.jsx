@@ -9,6 +9,7 @@ const Player = ({ songs }) => {
     const savedVolume = localStorage.getItem("volume");
     return savedVolume ? parseFloat(savedVolume) : 0.5;
   });
+  const [previousVolume, setPreviousVolume] = useState(volume); // Nuevo estado para guardar el volumen anterior
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const audioRef = useRef(null);
@@ -74,6 +75,19 @@ const Player = ({ songs }) => {
     const minutes = Math.floor(time / 60);
     const seconds = Math.floor(time % 60);
     return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+  };
+
+  const MuteVolume = () => {
+    if (volume === 0) {
+      // Restaurar el volumen al valor anterior si está en mute
+      setVolume(previousVolume);
+      audioRef.current.volume = previousVolume;
+    } else {
+      // Guardar el volumen actual antes de silenciar
+      setPreviousVolume(volume);
+      setVolume(0);
+      audioRef.current.volume = 0;
+    }
   };
 
   useEffect(() => {
@@ -160,7 +174,12 @@ const Player = ({ songs }) => {
       </div>
 
       <div className="player__volume">
-        <img src="/img/volume.svg" alt="Volume" />
+        <button onClick={MuteVolume}>
+          <img
+            src={volume === 0 ? "/img/mute.svg" : "/img/volume.svg"}
+            alt="Volume"
+          />
+        </button>
         <input
           id="volume"
           type="range"
